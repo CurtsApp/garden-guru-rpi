@@ -18,7 +18,7 @@ class Settings:
     def __init__(self):
         if (isLinux()):
             # Production settings
-            from .tempUtil import getCurrentTempAndHummidity
+            from tempUtil import getCurrentTempAndHummidity
             self.getSensorData = getCurrentTempAndHummidity
             self.readingPeriod = 60  # Seconds
             self.LOG_DIR_PATH = "/home/pi/code/log/temp"
