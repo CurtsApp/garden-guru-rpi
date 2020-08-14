@@ -2,3 +2,5 @@
 .idea/
 
 *.log
+
+api/node_modules/
