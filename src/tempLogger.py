@@ -39,7 +39,7 @@ def start():
     oldtime = time.time()
     while True:
         if time.time() - oldtime > settings.readingPeriod:
-            temp, humidity = settings.getSensorData()
+            humidity, temp = settings.getSensorData()
             dt_string = datetime.now().strftime("%d-%m-%Y,%H:%M:%S")
             dt = dt_string.split(',')
             if humidity is not None and temp is not None:
