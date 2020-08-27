@@ -44,7 +44,7 @@ def start():
             dt = dt_string.split(',')
             if humidity is not None and temp is not None:
                 with open(getFilePath(dt[0], settings.LOG_DIR_PATH), "a") as myfile:
-                    myfile.write('{0},{1:0.0f},{2:0.0f}\n'.format(dt[1], temp, humidity))
+                    myfile.write('{0},{1:0.0f},{2:0.0f}\n'.format(time.time(), temp, humidity))
             else:
                 myfile.write('Failed to get reading. Try again!\n')
             oldtime = time.time()
