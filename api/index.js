@@ -21,9 +21,6 @@ app.get('/data', (req, res) => {
     if (isNaN(startDT.getTime()) || isNaN(endDT.getTime())) {
         res.status(400).send("Malformed start or end date-time");
     } else {
-        console.log("Start Date: " + startDT);
-        console.log("End Date: " + endDT);
-
         getDateDataInRange(startDT, endDT).then((fulfilled) => {
 
             const description = {
@@ -51,7 +48,6 @@ function getDateDataInRange(sDate, eDate) {
     let inspectDate = new Date(sDate);
     inspectDate.setHours(0,0,0,0);
     while (inspectDate < eDate) {
-        //console.log("Getting... " + JSON.stringify((inspectDate)));
         getDatePromises.push(getDateData(inspectDate));
         inspectDate.setDate(inspectDate.getDate() + 1);
     }
@@ -63,7 +59,6 @@ function getDateDataInRange(sDate, eDate) {
             Chop out unincluded times of first and last days
              */
             const daysTimePoints = res;
-            console.log(res);
             let firstDayTimePoints = daysTimePoints[0];
             // Remove time points before start time
             daysTimePoints[0] = firstDayTimePoints.filter(timePoint => {
@@ -94,7 +89,6 @@ function getDateData(date) {
         const fileName = `${formatDateNum(date.getDate())}-${formatDateNum(date.getMonth() + 1)}-${date.getFullYear()}.log`;
         const logPath = getLogPath();
         const filePath = `${logPath}/${fileName}`;
-        console.log("Getting... " + filePath);
         fs.readFile(filePath, "utf8", function (err, data) {
             const timePoints = [];
             if (data) {
@@ -142,7 +136,7 @@ function getLogPath() {
 }
 
 function isLinux() {
-    return os.platform === "Linux"
+    return os.platform().toLowerCase() === "linux"
 }
 
 app.listen(port, () => {
